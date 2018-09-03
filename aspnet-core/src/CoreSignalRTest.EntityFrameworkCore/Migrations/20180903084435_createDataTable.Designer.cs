@@ -4,14 +4,16 @@ using CoreSignalRTest.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoreSignalRTest.Migrations
 {
     [DbContext(typeof(CoreSignalRTestDbContext))]
-    partial class CoreSignalRTestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180903084435_createDataTable")]
+    partial class createDataTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
