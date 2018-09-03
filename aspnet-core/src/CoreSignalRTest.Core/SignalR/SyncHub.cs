@@ -13,9 +13,9 @@ namespace CoreSignalRTest.SignalR
         {
         }
 
-        public async Task Sync(string entityType)
+        public async Task Sync(Type entityType)
         {
-            await Clients.All.SendCoreAsync("Sync", new object[] { entityType });
+            await Clients.All.SendCoreAsync(entityType.Name, new object[0]);
         }
 
         public override async Task OnConnectedAsync()
