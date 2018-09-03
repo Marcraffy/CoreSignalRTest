@@ -17,6 +17,7 @@ using CoreSignalRTest.Configuration;
 using CoreSignalRTest.Identity;
 
 using Abp.AspNetCore.SignalR.Hubs;
+using CoreSignalRTest.SignalR;
 
 namespace CoreSignalRTest.Web.Host.Startup
 {
@@ -103,7 +104,7 @@ namespace CoreSignalRTest.Web.Host.Startup
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<AbpCommonHub>("/signalr");
+                routes.MapHub<SyncHub>("/signalr");
             });
 
             app.UseMvc(routes =>
