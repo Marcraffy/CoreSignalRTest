@@ -3,19 +3,28 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.AspNetCore.SignalR.Hubs;
+using Abp.Auditing;
 using Abp.Dependency;
+using Abp.Logging;
+using Abp.RealTime;
+using Microsoft.AspNetCore.SignalR;
 
 namespace CoreSignalRTest.SignalR
 {
-    public class SyncHub : AbpCommonHub, ITransientDependency
+    public class SyncHub : AbpCommonHub
     {
-        public SyncHub(Abp.RealTime.IOnlineClientManager onlineClientManager, Abp.Auditing.IClientInfoProvider clientInfoProvider) : base(onlineClientManager, clientInfoProvider)
+
+        private readonly IHubContext<SyncHub> context;
+        public SyncHub(IOnlineClientManager onlineClientManager, 
+            IClientInfoProvider clientInfoProvider,
+            IHubContext<SyncHub> context) : base(onlineClientManager, clientInfoProvider)
         {
+            this.context = context;
         }
 
         public async Task Sync(Type entityType)
         {
-            await Clients.All.SendCoreAsync(entityType.Name, new object[0]);
+            await context.Clients.All.SendCoreAsync(entityType.Name, new object[0]);
         }
 
         public override async Task OnConnectedAsync()

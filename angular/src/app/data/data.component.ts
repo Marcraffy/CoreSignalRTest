@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Connection } from '../../../node_modules/@angular/http';
+import { HubConnection, HubConnectionBuilder, LogLevel } from "@aspnet/signalr";
 
 @Component({
   selector: 'app-data',
@@ -8,15 +8,35 @@ import { Connection } from '../../../node_modules/@angular/http';
 })
 export class DataComponent implements OnInit {
 
-  syncHub: any;
+  syncHub: HubConnection;
   constructor() { }
 
   ngOnInit() {
     abp.log.debug(`Status: ${abp.signalr.autoConnect}`);
-    debugger;
 
-    abp.event.on("SyncHub.connected", () => {
-      abp.log.debug("Connection acknowledged");
+    this.syncHub = new HubConnectionBuilder()
+      .withUrl("/signalr")
+      .build();
+
+    this.syncHub.on("connected", result => {
+      abp.log.debug("Sync!");
+      debugger;
+    });
+    this.syncHub.on("signalr.connected", result => {
+      abp.log.debug("Sync!");
+      debugger;
+    });
+    this.syncHub.on("syncHub.connected", result => {
+      abp.log.debug("Sync!");
+      debugger;
+    });
+    this.syncHub.on("SyncHub.connected", result => {
+      abp.log.debug("Sync!");
+      debugger;
+    });
+    this.syncHub.on(".connected", result => {
+      abp.log.debug("Sync!");
+      debugger;
     });
   }
 }

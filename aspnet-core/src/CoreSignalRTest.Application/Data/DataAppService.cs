@@ -23,9 +23,9 @@ namespace CoreSignalRTest.Data
 
         public override async Task<DataDto> Create(DataDto input)
         {
-            var output = base.Create(input);
+            var output = await base.Create(input);
             await syncHub.Sync(typeof(DataDto));
-            return await output;
+            return output;
         }
     }
 }
