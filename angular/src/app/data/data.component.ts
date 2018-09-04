@@ -12,31 +12,11 @@ export class DataComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    abp.log.debug(`Status: ${abp.signalr.autoConnect}`);
-
-    this.syncHub = new HubConnectionBuilder()
-      .withUrl("/signalr")
-      .build();
-
-    this.syncHub.on("connected", result => {
-      abp.log.debug("Sync!");
-      debugger;
-    });
-    this.syncHub.on("signalr.connected", result => {
-      abp.log.debug("Sync!");
-      debugger;
-    });
-    this.syncHub.on("syncHub.connected", result => {
-      abp.log.debug("Sync!");
-      debugger;
-    });
-    this.syncHub.on("SyncHub.connected", result => {
-      abp.log.debug("Sync!");
-      debugger;
-    });
-    this.syncHub.on(".connected", result => {
-      abp.log.debug("Sync!");
-      debugger;
-    });
+    abp.event.on("abp.signalr.connected", () => {
+      this.syncHub = abp.signalr.hubs.common;
+      this.syncHub.on("DataDto", () =>{
+        debugger;
+      });
+    })
   }
 }

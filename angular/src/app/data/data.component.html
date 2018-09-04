@@ -1,3 +1,27 @@
-<p>
-  data works!
-</p>
+<table>
+  <thead>
+    <tr>
+      <th>{{('Text')}}</th>
+        <th>
+         <th>{{l('Actions')}}</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <td>{{data.text}}</td>
+                    <td align="center">
+                      <i class="material-icons" *ngIf="user.isActive" style="color:green;">check_box</i>
+                        <i class="material-icons" *ngIf="!user.isActive" style="color:red;">indeterminate_check_box</i>
+                    </td>
+                       <td class="dropdown">
+                           <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                              <i class="material-icons">menu</i>
+                            </a>
+                        </td>
+                  </tbody>
+              </table>
+          <!-- ******************************************************** -->
+
+              <button type="button" data-toggle="modal" class="btn btn-primary btn-circle waves-effect waves-circle waves-float pull-right" (click)="createUser()">
+                  <i class="material-icons">add</i>
+              </button>
+//<create-user-modal #createUserModal (modalSave)="refresh()"></create-user-modal>
