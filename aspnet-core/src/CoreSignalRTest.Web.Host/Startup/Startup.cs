@@ -15,9 +15,9 @@ using Abp.Extensions;
 using CoreSignalRTest.Authentication.JwtBearer;
 using CoreSignalRTest.Configuration;
 using CoreSignalRTest.Identity;
-
 using Abp.AspNetCore.SignalR.Hubs;
-using CoreSignalRTest.SignalR;
+using Abp.AppFactory.Interfaces;
+using Abp.AppFactory.Sync;
 
 namespace CoreSignalRTest.Web.Host.Startup
 {

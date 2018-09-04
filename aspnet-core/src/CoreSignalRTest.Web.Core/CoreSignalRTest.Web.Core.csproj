@@ -16,6 +16,7 @@
     <RootNamespace>CoreSignalRTest</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Abp.AppFactory.SyncHub\Abp.AppFactory.Sync.csproj" />
     <ProjectReference Include="..\CoreSignalRTest.Application\CoreSignalRTest.Application.csproj" />
     <ProjectReference Include="..\CoreSignalRTest.EntityFrameworkCore\CoreSignalRTest.EntityFrameworkCore.csproj" />
   </ItemGroup>

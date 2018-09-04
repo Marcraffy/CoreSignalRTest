@@ -1,4 +1,5 @@
-﻿using Abp.Modules;
+﻿using Abp.AppFactory.Interfaces;
+using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Timing;
 using Abp.Zero;
@@ -8,7 +9,6 @@ using CoreSignalRTest.Authorization.Users;
 using CoreSignalRTest.Configuration;
 using CoreSignalRTest.Localization;
 using CoreSignalRTest.MultiTenancy;
-using CoreSignalRTest.SignalR;
 using CoreSignalRTest.Timing;
 
 namespace CoreSignalRTest
@@ -38,7 +38,6 @@ namespace CoreSignalRTest
 
         public override void Initialize()
         {
-            IocManager.Register<SyncHub>(Abp.Dependency.DependencyLifeStyle.Transient);
             IocManager.RegisterAssemblyByConvention(typeof(CoreSignalRTestCoreModule).GetAssembly());
            
         }
