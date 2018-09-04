@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Abp.AppFactory.Interfaces;
 using Abp.Application.Services;
 using Abp.Domain.Repositories;
-using CoreSignalRTest.SignalR;
+using System.Threading.Tasks;
 
 namespace CoreSignalRTest.Data
 {
-    public class DataAppService : AsyncCrudAppService<Data,DataDto>
+    public class DataAppService : AsyncCrudAppService<Data, DataDto>
     {
-        private readonly SyncHub syncHub;
+        private readonly ISyncHub syncHub;
 
         public DataAppService(
             IRepository<Data, int> repository,
-            SyncHub syncHub
-            )
-            : base(repository)
+            ISyncHub syncHub
+            ) : base(repository)
         {
             this.syncHub = syncHub;
         }

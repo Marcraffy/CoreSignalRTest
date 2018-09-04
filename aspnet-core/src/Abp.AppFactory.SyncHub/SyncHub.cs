@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Abp.AppFactory.Interfaces;
 using Abp.AspNetCore.SignalR.Hubs;
 using Abp.Auditing;
-using Abp.Dependency;
-using Abp.Logging;
 using Abp.RealTime;
 using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Threading.Tasks;
 
-namespace CoreSignalRTest.SignalR
+namespace Abp.AppFactory.Sync
 {
-    public class SyncHub : AbpCommonHub
+    public class SyncHub : AbpCommonHub, ISyncHub
     {
-
         private readonly IHubContext<SyncHub> context;
-        public SyncHub(IOnlineClientManager onlineClientManager, 
+
+        public SyncHub(IOnlineClientManager onlineClientManager,
             IClientInfoProvider clientInfoProvider,
             IHubContext<SyncHub> context) : base(onlineClientManager, clientInfoProvider)
         {
@@ -38,6 +35,5 @@ namespace CoreSignalRTest.SignalR
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, "Users");
             await base.OnDisconnectedAsync(exception);
         }
-
     }
 }

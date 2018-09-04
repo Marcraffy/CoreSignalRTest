@@ -12,14 +12,16 @@ using Abp.Zero.Configuration;
 using CoreSignalRTest.Authentication.JwtBearer;
 using CoreSignalRTest.Configuration;
 using CoreSignalRTest.EntityFrameworkCore;
+using Abp.AppFactory.Sync;
 
 namespace CoreSignalRTest
 {
     [DependsOn(
          typeof(CoreSignalRTestApplicationModule),
          typeof(CoreSignalRTestEntityFrameworkModule),
-         typeof(AbpAspNetCoreModule)
-        ,typeof(AbpAspNetCoreSignalRModule)
+         typeof(AbpAspNetCoreModule),
+         typeof(AbpAspNetCoreSignalRModule),
+         typeof(SyncModule)
      )]
     public class CoreSignalRTestWebCoreModule : AbpModule
     {
