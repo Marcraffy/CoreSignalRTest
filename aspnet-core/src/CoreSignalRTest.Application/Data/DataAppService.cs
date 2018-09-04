@@ -6,21 +6,12 @@ namespace CoreSignalRTest.Data
 {
     public class DataAppService : AsyncCrudAppServiceBase<Data, DataDto>
     {
-        private readonly ISyncHub syncHub;
 
         public DataAppService(
             IRepository<Data, int> repository,
             ISyncHub syncHub
-            ) : base(repository)
+            ) : base(repository, syncHub)
         {
-            this.syncHub = syncHub;
-        }
-
-        public override async Task<DataDto> Create(DataDto input)
-        {
-            var output = await base.Create(input);
-            await syncHub.Sync(typeof(DataDto));
-            return output;
         }
     }
 }

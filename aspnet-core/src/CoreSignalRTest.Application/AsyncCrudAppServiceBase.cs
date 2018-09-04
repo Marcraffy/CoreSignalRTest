@@ -1,4 +1,5 @@
-﻿using Abp.Application.Services;
+﻿using Abp.AppFactory.Interfaces;
+using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
@@ -12,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace CoreSignalRTest
 {
-    public class AsyncCrudAppServiceBase<TEntity, TEntityDto> : AsyncCrudAppService<TEntity, TEntityDto, int>
+    public class AsyncCrudAppServiceBase<TEntity, TEntityDto> : AsyncCrudAppServiceBase<TEntity, TEntityDto, int>
         where TEntity : Entity
         where TEntityDto : EntityDto
     {
-        public AsyncCrudAppServiceBase(IRepository<TEntity, int> repository) : base(repository)
+        public AsyncCrudAppServiceBase(IRepository<TEntity, int> repository, ISyncHub syncHub) : base(repository, syncHub)
         {
         }
     }
@@ -25,7 +26,7 @@ namespace CoreSignalRTest
         where TEntity : Entity<TPrimaryKey>
         where TEntityDto : EntityDto<TPrimaryKey>
     {
-        public AsyncCrudAppServiceBase(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
+        public AsyncCrudAppServiceBase(IRepository<TEntity, TPrimaryKey> repository, ISyncHub syncHub) : base(repository, syncHub)
         {
         }
     }
@@ -34,7 +35,7 @@ namespace CoreSignalRTest
         where TEntity : Entity<TPrimaryKey>
         where TEntityDto : EntityDto<TPrimaryKey>
     {
-        public AsyncCrudAppServiceBase(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
+        public AsyncCrudAppServiceBase(IRepository<TEntity, TPrimaryKey> repository, ISyncHub syncHub) : base(repository, syncHub)
         {
         }
     }
@@ -44,23 +45,24 @@ namespace CoreSignalRTest
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
     {
-        public AsyncCrudAppServiceBase(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
+        public AsyncCrudAppServiceBase(IRepository<TEntity, TPrimaryKey> repository, ISyncHub syncHub) : base(repository, syncHub)
         {
         }
     }
 
-    public class AsyncCrudAppServiceBase<TEntity, TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput> : AsyncCrudAppService<TEntity, TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput, EntityDto<TPrimaryKey>>
+    public class AsyncCrudAppServiceBase<TEntity, TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput> : AsyncCrudAppServiceBase<TEntity, TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput, EntityDto<TPrimaryKey>>
         where TEntity : class, IEntity<TPrimaryKey>
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
         where TGetInput : IEntityDto<TPrimaryKey>
     {
-        public AsyncCrudAppServiceBase(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
+        public AsyncCrudAppServiceBase(IRepository<TEntity, TPrimaryKey> repository, ISyncHub syncHub) : base(repository, syncHub)
         {
         }
     }
 
     public class AsyncCrudAppServiceBase<TEntity, TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput, TDeleteInput> : AsyncCrudAppService<TEntity, TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput, TDeleteInput>
+
         where TEntity : class, IEntity<TPrimaryKey>
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
@@ -71,8 +73,11 @@ namespace CoreSignalRTest
 
         public UserManager UserManager { get; set; }
 
-        public AsyncCrudAppServiceBase(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
+        private readonly ISyncHub syncHub;
+
+        public AsyncCrudAppServiceBase(IRepository<TEntity, TPrimaryKey> repository, ISyncHub syncHub) : base(repository)
         {
+            this.syncHub = syncHub;
             LocalizationSourceName = CoreSignalRTestConsts.LocalizationSourceName;
         }
 
@@ -95,6 +100,26 @@ namespace CoreSignalRTest
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
             identityResult.CheckErrors(LocalizationManager);
+        }
+
+        public override async Task<TEntityDto> Create(TCreateInput input)
+        {
+            var output = await base.Create(input);
+            await syncHub.Sync(typeof(TEntityDto));
+            return output;
+        }
+
+        public override async Task<TEntityDto> Update(TUpdateInput input)
+        {
+            var output = await base.Update(input);
+            await syncHub.Sync(typeof(TEntityDto));
+            return output;
+        }
+
+        public override async Task Delete(TDeleteInput input)
+        {
+            await base.Delete(input);
+            await syncHub.Sync(typeof(TEntityDto));
         }
     }
 }
