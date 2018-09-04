@@ -1,11 +1,10 @@
 ﻿using Abp.AppFactory.Interfaces;
-using Abp.Application.Services;
 using Abp.Domain.Repositories;
 using System.Threading.Tasks;
 
 namespace CoreSignalRTest.Data
 {
-    public class DataAppService : AsyncCrudAppService<Data, DataDto>
+    public class DataAppService : AsyncCrudAppServiceBase<Data, DataDto>
     {
         private readonly ISyncHub syncHub;
 
