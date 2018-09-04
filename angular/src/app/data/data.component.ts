@@ -5,6 +5,7 @@ import { DataDto, DataServiceProxy, PagedResultDtoOfDataDto } from '@shared/serv
 import { finalize } from 'rxjs/operators';
 import { AppComponentBase } from '@shared/app-component-base';
 import { CreateDataComponent } from '@app/data/create-data/create-data.component';
+import { request } from 'http';
 
 @Component({
   selector: 'app-data',
@@ -29,8 +30,9 @@ export class DataComponent extends PagedListingComponentBase<DataDto> implements
   ngOnInit() {
     abp.event.on("abp.signalr.connected", () => {
       this.syncHub = abp.signalr.hubs.common;
-      this.syncHub.on("DataDto", () => {
-        debugger;
+      this.syncHub.on(DataDto.name, () => {
+        //debugger;
+        this.refresh();
       });
     })
   }

@@ -24,19 +24,20 @@
                         <thead>
                             <tr>
                                 <th>{{l('Text')}}</th>
+                                <th>{{l('Actions')}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let information of data | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: pageNumber, totalItems: totalItems }">
                                 <td>{{information.text}}</td>
-                                <!-- <td class="dropdown">
+                                <td class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                         <i class="material-icons">menu</i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
                                         <li><a href="javascript:void(0);" class="waves-effect waves-block" (click)="delete(information)"><i class="material-icons">delete_sweep</i>{{l('Delete')}}</a></li>
                                     </ul>
-                                </td> -->
+                                </td>
                             </tr>
                         </tbody>
                     </table>
