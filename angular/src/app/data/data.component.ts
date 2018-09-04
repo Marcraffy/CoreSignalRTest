@@ -1,9 +1,10 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, LogLevel } from "@aspnet/signalr";
 import { PagedRequestDto, PagedListingComponentBase } from '@shared/paged-listing-component-base';
 import { DataDto, DataServiceProxy, PagedResultDtoOfDataDto } from '@shared/service-proxies/service-proxies';
 import { finalize } from 'rxjs/operators';
 import { AppComponentBase } from '@shared/app-component-base';
+import { CreateDataComponent } from '@app/data/create-data/create-data.component';
 
 @Component({
   selector: 'app-data',
@@ -12,7 +13,7 @@ import { AppComponentBase } from '@shared/app-component-base';
 })
 export class DataComponent extends PagedListingComponentBase<DataDto> implements OnInit {
 
-  // @ViewChild('createDataModal') createDataModal: CreateDataComponent;
+  @ViewChild('createDataModal') createDataModal: CreateDataComponent;
 
   active: boolean = false;
   data: DataDto[] = [];
@@ -62,6 +63,6 @@ export class DataComponent extends PagedListingComponentBase<DataDto> implements
 
   // Show Modals
   createUser(): void {
-    //this.createDataModal.show();
+    this.createDataModal.show();
   }
 }

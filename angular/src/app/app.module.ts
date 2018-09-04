@@ -33,6 +33,7 @@ import { SideBarNavComponent } from '@app/layout/sidebar-nav.component';
 import { SideBarFooterComponent } from '@app/layout/sidebar-footer.component';
 import { RightSideBarComponent } from '@app/layout/right-sidebar.component';
 import { DataComponent } from './data/data.component';
+import { CreateDataComponent } from '@app/data/create-data/create-data.component';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import { DataComponent } from './data/data.component';
         SideBarNavComponent,
         SideBarFooterComponent,
         RightSideBarComponent,
-        DataComponent
+        DataComponent,
+        CreateDataComponent,
     
     ],
     imports: [
