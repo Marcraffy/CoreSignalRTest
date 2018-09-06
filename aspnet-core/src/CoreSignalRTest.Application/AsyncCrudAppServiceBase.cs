@@ -102,24 +102,30 @@ namespace CoreSignalRTest
             identityResult.CheckErrors(LocalizationManager);
         }
 
+        protected Task Sync()
+        {
+            CurrentUnitOfWork.SaveChanges();
+            return syncHub.Sync(typeof(TEntityDto));
+        }
+
         public override async Task<TEntityDto> Create(TCreateInput input)
         {
             var output = await base.Create(input);
-            await syncHub.Sync(typeof(TEntityDto));
+            await Sync();
             return output;
         }
 
         public override async Task<TEntityDto> Update(TUpdateInput input)
         {
             var output = await base.Update(input);
-            await syncHub.Sync(typeof(TEntityDto));
+            await Sync();
             return output;
         }
 
         public override async Task Delete(TDeleteInput input)
         {
             await base.Delete(input);
-            await syncHub.Sync(typeof(TEntityDto));
+            await Sync();
         }
     }
 }

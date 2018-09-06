@@ -1,4 +1,5 @@
 ﻿using Abp.AppFactory.Interfaces;
+using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using System.Threading.Tasks;
 
@@ -12,6 +13,17 @@ namespace CoreSignalRTest.Data
             ISyncHub syncHub
             ) : base(repository, syncHub)
         {
+        }
+
+        public override Task<DataDto> Update(DataDto input)
+        {
+            return base.Update(input);
+        }
+
+        public override async Task Delete(EntityDto<int> input)
+        {
+            await Repository.DeleteAsync(input.Id);
+            await Sync();
         }
     }
 }
