@@ -16,11 +16,12 @@
     <RootNamespace>CoreSignalRTest</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Abp.AppFactory.SyncHub\Abp.AppFactory.Sync.csproj" />
+    <ProjectReference Include="..\..\..\..\Abp.AppFactory.SendGrid\Abp.AppFactory.SendGrid\Abp.AppFactory.SendGrid.csproj" />
     <ProjectReference Include="..\CoreSignalRTest.Application\CoreSignalRTest.Application.csproj" />
     <ProjectReference Include="..\CoreSignalRTest.EntityFrameworkCore\CoreSignalRTest.EntityFrameworkCore.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Abp.AppFactory.Sync" Version="1.0.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.5.0" />

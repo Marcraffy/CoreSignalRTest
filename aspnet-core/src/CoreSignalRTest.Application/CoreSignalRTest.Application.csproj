@@ -11,6 +11,10 @@
     <RootNamespace>CoreSignalRTest</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Abp.AppFactory.AsyncCrudAppServiceBase" Version="1.0.0" />
+    <PackageReference Include="Abp.AppFactory.Interfaces" Version="1.4.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CoreSignalRTest.Core\CoreSignalRTest.Core.csproj" />
   </ItemGroup>
 </Project>

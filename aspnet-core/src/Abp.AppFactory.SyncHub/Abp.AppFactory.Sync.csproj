@@ -6,12 +6,9 @@
 
   <ItemGroup>
     <PackageReference Include="Abp" Version="3.8.1" />
+    <PackageReference Include="Abp.AppFactory.Interfaces" Version="1.3.0" />
     <PackageReference Include="Abp.AspNetCore" Version="3.8.1" />
     <PackageReference Include="Abp.AspNetCore.SignalR" Version="3.8.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Abp.AppFactory.Interfaces\Abp.AppFactory.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Text;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+﻿using Abp.AppFactory.SendGrid;
+using Abp.AppFactory.Sync;
 using Abp.AspNetCore;
 using Abp.AspNetCore.Configuration;
 using Abp.AspNetCore.SignalR;
@@ -12,7 +9,11 @@ using Abp.Zero.Configuration;
 using CoreSignalRTest.Authentication.JwtBearer;
 using CoreSignalRTest.Configuration;
 using CoreSignalRTest.EntityFrameworkCore;
-using Abp.AppFactory.Sync;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
 
 namespace CoreSignalRTest
 {
@@ -21,7 +22,8 @@ namespace CoreSignalRTest
          typeof(CoreSignalRTestEntityFrameworkModule),
          typeof(AbpAspNetCoreModule),
          typeof(AbpAspNetCoreSignalRModule),
-         typeof(SyncModule)
+         typeof(SyncModule),
+         typeof(SendGridModule)
      )]
     public class CoreSignalRTestWebCoreModule : AbpModule
     {
